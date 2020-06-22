@@ -9,9 +9,17 @@ class AdminBlogController extends Controller
 {
     protected $article;
     
+    const NUM_PER_PAGE = 10;
+    
     function __construct(Article $article)
     {
         $this->article = $article;
+    }
+    
+    public function list()
+    {
+        $list = $this->article->getArticleList(self::NUM_PER_PAGE);
+        return view('admin_blog.list', compact('list'));
     }
     
     public function form(int $article_id = null)
@@ -51,6 +59,6 @@ class AdminBlogController extends Controller
         $result = $this->article->destroy($article_id);
         $message = ($result) ? '記事を削除しました' : '記事の削除に失敗しました。';
 
-        return redirect()->route('admin_form')->with('message', $message);
+        return redirect()->route('admin_list')->with('message', $message);
     }
 }
