@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminBlogRequest;
 use App\Article;
+use App\Category;
 
 class AdminBlogController extends Controller
 {
     protected $article;
+    protected $category;
     
     const NUM_PER_PAGE = 10;
     
-    function __construct(Article $article)
+    function __construct(Article $article, Category $category)
     {
         $this->article = $article;
+        $this->category = $category;
     }
     
     public function list()
@@ -60,5 +63,11 @@ class AdminBlogController extends Controller
         $message = ($result) ? '記事を削除しました' : '記事の削除に失敗しました。';
 
         return redirect()->route('admin_list')->with('message', $message);
+    }
+    
+    public function category()
+    {
+        $list = $this->category->getCategoryList(self::NUM_PER_PAGE);
+        return view('admin_blog.category', compact('list'));
     }
 }
