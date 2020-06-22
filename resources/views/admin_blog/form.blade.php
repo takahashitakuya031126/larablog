@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{{ asset('/css/blog.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>ブログ記事投稿フォーム</title>
 </head>
@@ -35,20 +34,21 @@
             <form method="POST" action="{{ route('admin_post') }}">
                 <div class="form-group">
                     <label>日付</label>
-                    <input class="form-control w-auto" name="post_date" size="20" value="" placeholder="日付を入力して下さい。">
+                    <input class="form-control w-auto" name="post_date" size="20" value="{{ $input['post_date'] or null }}" placeholder="日付を入力して下さい。">
                 </div>
 
                 <div class="form-group">
                     <label>タイトル</label>
-                    <input class="form-control" name="title" value="" placeholder="タイトルを入力して下さい。">
+                    <input class="form-control" name="title" value="{{ $input['title'] or null }}" placeholder="タイトルを入力して下さい。">
                 </div>
 
                 <div class="form-group">
                     <label>本文</label>
-                    <textarea class="form-control" rows="15" name="body" placeholder="本文を入力してください。"></textarea>
+                    <textarea class="form-control" rows="15" name="body" placeholder="本文を入力してください。">{{ $input['body'] or null }}</textarea>
                 </div>
 
                 <input type="submit" class="btn btn-primary btn-sm" value="送信">
+                <input type="hidden" name="article_id" value="{{ $article_id }}">
                 {{ csrf_field() }}
             </form>
         </div>

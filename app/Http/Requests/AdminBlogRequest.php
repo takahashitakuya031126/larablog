@@ -24,6 +24,7 @@ class AdminBlogRequest extends FormRequest
     public function rules()
     {
         return [
+            'article_id' => 'integer|nullable',
             'post_date' => 'required|date',
             'title' => 'required|string|max:255',
             'body' => 'required|string|max:10000',
@@ -33,6 +34,7 @@ class AdminBlogRequest extends FormRequest
     public function messages()
     {
         return [
+            'article_id.integer' => '記事IDは整数でなければなりません',
             'post_date.required' => '日付は必須です',
             'post_date.date' => '日付は日付形式で入力してください',
             'title.required' => 'タイトルは必須です',

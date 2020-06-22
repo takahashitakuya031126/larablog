@@ -14,17 +14,33 @@ class AdminBlogController extends Controller
         $this->article = $article;
     }
     
-    public function form()
+    public function form(int $article_id = null)
     {
-        return view('admin_blog.form');
+        $article = $this->article->find($article_id);
+        
+        $input = [];
+        if ($article) {
+            $input = $article->toArray();
+            $input['post_date'] = $article->post_date_text;
+        } else {
+            $article_id = null;
+        }
+        
+        $input = array_merge($input, old());
+        
+        return view('admin_blog.form', compact('input', 'article_id'));
     }
     
     public function post(AdminBlogRequest $request)
     {
         $input = $request->input();
+        
+        $article_id = array_get($input, 'article_id');
 
-        $article = $this->article->create($input);
+        $article = $this->article->updateOrCreate(compact('article_id'), $input);
 
-        return redirect()->route('admin_form')->with('message', '記事を保存しました');
+        return redirect()
+            ->route('admin_form', ['article_id' => $article->article_id])
+            ->with('status', '記事を保存しました');
     }
 }
