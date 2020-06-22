@@ -14,8 +14,25 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h2 class="border-bottom py-2 mb-4">ブログ記事投稿・編集</h2>
+            
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+                <br>
+            @endif
+            
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-            <form method="POST">
+            <form method="POST" action="{{ route('admin_post') }}">
                 <div class="form-group">
                     <label>日付</label>
                     <input class="form-control w-auto" name="post_date" size="20" value="" placeholder="日付を入力して下さい。">
