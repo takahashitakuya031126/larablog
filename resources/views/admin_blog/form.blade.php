@@ -30,6 +30,19 @@
                     <label>日付</label>
                     <input class="form-control w-auto" name="post_date" size="20" value="{{ $input['post_date'] or null }}" placeholder="日付を入力して下さい。">
                 </div>
+                
+                <div class="form-group">
+                    <label>カテゴリー</label>
+                    <select class="form-control" name="category_id">
+                        @foreach ($category_list as $category_id => $category_name)
+                            @php
+                                $input_category_id = array_get($input, 'category_id');
+                                $selected = ($category_id == $input_category_id) ? ' selected' : null;
+                            @endphp
+                            <option value="{{ $category_id }}"{{$selected}}>{{ $category_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="form-group">
                     <label>タイトル</label>

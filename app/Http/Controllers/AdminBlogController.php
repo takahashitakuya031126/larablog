@@ -39,7 +39,9 @@ class AdminBlogController extends Controller
         
         $input = array_merge($input, old());
         
-        return view('admin_blog.form', compact('input', 'article_id'));
+        $category_list = $this->category->getCategoryList()->pluck('name', 'category_id');
+        
+        return view('admin_blog.form', compact('input', 'article_id', 'category_list'));
     }
     
     public function post(AdminBlogRequest $request)
@@ -69,5 +71,23 @@ class AdminBlogController extends Controller
     {
         $list = $this->category->getCategoryList(self::NUM_PER_PAGE);
         return view('admin_blog.category', compact('list'));
+    }
+    
+    public function editCategory(AdminBlogRequest $request)
+    {
+        $input = $request->input();
+        $category_id = $request->input('category_id');
+
+        $category = $this->category->updateOrCreate(compact('category_id'), $input);
+
+        return response()->json($category);
+    }
+    
+    public function deleteCategory(AdminBlogRequest $request)
+    {
+        $category_id = $request->input('category_id');
+        $this->category->destroy($category_id);
+
+        return response()->json();
     }
 }

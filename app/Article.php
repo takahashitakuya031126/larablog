@@ -12,7 +12,7 @@ class Article extends Model
     
     protected $primaryKey = 'article_id';
     
-    protected $fillable = ['post_date', 'title', 'body'];
+    protected $fillable = ['category_id', 'post_date', 'title', 'body'];
     
     protected $dates = ['post_date', 'created_at', 'updated_at', 'deleted_at'];
     
@@ -26,10 +26,10 @@ class Article extends Model
         if ($year) {
             if ($month) {
                 $start_date = Carbon::createFromDate($year, $month, 1);
-                $end_date   = Carbon::createFromDate($year, $month, 1)->addMonth();     // 1ヶ月後
+                $end_date   = Carbon::createFromDate($year, $month, 1)->addMonth();
             } else {
                 $start_date = Carbon::createFromDate($year, 1, 1);
-                $end_date   = Carbon::createFromDate($year, 1, 1)->addYear();           // 1年後
+                $end_date   = Carbon::createFromDate($year, 1, 1)->addYear();
             }
             $query->where('post_date', '>=', $start_date->format('Y-m-d'))
                   ->where('post_date', '<',  $end_date->format('Y-m-d'));
