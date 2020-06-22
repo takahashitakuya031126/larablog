@@ -16,12 +16,22 @@ class Article extends Model
     
     protected $dates = ['post_date', 'created_at', 'updated_at', 'deleted_at'];
     
+    public function category()
+    {
+        return $this->hasOne('App\Category', 'category_id', 'category_id');
+    }
+    
     public function getArticleList(int $num_per_page = 10, array $condition = [])
     {
+        $category_id = array_get($condition, 'category_id');
         $year  = array_get($condition, 'year');
         $month = array_get($condition, 'month');
         
-        $query = $this->orderBy('article_id', 'desc');
+        $query = $this->with('category')->orderBy('article_id', 'desc');
+        
+        if ($category_id) {
+            $query->where('category_id', $category_id);
+        }
         
         if ($year) {
             if ($month) {

@@ -13,6 +13,11 @@ class Category extends Model
     protected $fillable = ['name', 'display_order'];
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
     
+    public function articles()
+    {
+        return $this->hasMany('App\Article', 'category_id', 'category_id');
+    }
+    
     public function getCategoryList(int $num_per_page = 0, string $order = 'display_order', string $direction = 'asc')
     {
         $query = $this->orderBy($order, $direction);
