@@ -4,7 +4,7 @@
 
 @section('body')
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-md-8 col-md-offset-2">
                 <h2 class="border-bottom py-2 mb-4">ブログ記事一覧</h2>
 
