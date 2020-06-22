@@ -41,6 +41,16 @@ class AdminBlogController extends Controller
 
         return redirect()
             ->route('admin_form', ['article_id' => $article->article_id])
-            ->with('status', '記事を保存しました');
+            ->with('message', '記事を保存しました');
+    }
+    
+    public function delete(AdminBlogRequest $request)
+    {
+        $article_id = $request->input('article_id');
+
+        $result = $this->article->destroy($article_id);
+        $message = ($result) ? '記事を削除しました' : '記事の削除に失敗しました。';
+
+        return redirect()->route('admin_form')->with('message', $message);
     }
 }

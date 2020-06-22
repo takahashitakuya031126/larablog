@@ -14,3 +14,5 @@
 Route::get('admin/form/{article_id?}', 'AdminBlogController@form')->name('admin_form');
 
 Route::post('admin/post', 'AdminBlogController@post')->name('admin_post');
+
+Route::post('admin/delete', 'AdminBlogController@delete')->name('admin_delete');
