@@ -2,6 +2,10 @@
 
 @section('title', 'カテゴリー一覧')
 
+@section('head')
+    <script src="{{ asset('/js/category.js') }}"></script>
+@endsection
+
 @section('body')
     <div class="container">
         <div class="row justify-content-center">
