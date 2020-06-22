@@ -1,7 +1,7 @@
 <div class="col-md-2 mt-3">
     <div class="card rounded-0">
         <div class="card-body bg-primary">
-            <h3 class="card-title text-light">カテゴリー</h3>
+            <div class="card-title text-light">カテゴリー</div>
         </div>
         <div class="card-body">
             <ul class="monthly_archive">

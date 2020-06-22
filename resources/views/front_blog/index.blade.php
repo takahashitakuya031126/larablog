@@ -13,8 +13,8 @@
                     {!! nl2br(e($article->body)) !!}
                 </div>
                 <div class="card-body text-right bg-primary text-light">
-                    <a href="{{ route('front_index', ['category_id' => $article->category->category_id]) }}">
-                        {{ $article->category->name }}
+                    <a href="{{ route('front_index', ['category_id' => optional($article->category)->category_id]) }}">
+                        {{ optional($article->category)->name }}
                     </a>
                     {{ $article->updated_at->format('Y/m/d H:i:s') }}
                 </div>
